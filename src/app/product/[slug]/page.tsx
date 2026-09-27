@@ -7,14 +7,19 @@ import { formatINR } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ v?: string }>;
+};
 
-export default async function ProductPage({ params }: Props) {
+export default async function ProductPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const { v: variantId } = await searchParams;
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
-  const defaultVariant = product.variants[0];
+  const selectedVariant =
+    product.variants.find((x) => x.id === variantId) ?? product.variants[0];
   const related = await getRelatedProducts(product.categoryId, product.id);
 
   return (
@@ -64,42 +69,58 @@ export default async function ProductPage({ params }: Props) {
         {product.isDeal && (
           <p className="text-xs font-semibold text-[#cc0c39]">Limited-time deal</p>
         )}
-        <p className="text-3xl font-medium">{formatINR(defaultVariant?.priceCents ?? 0)}</p>
-        {defaultVariant?.listPriceCents && (
+        <p className="text-3xl font-medium">{formatINR(selectedVariant?.priceCents ?? 0)}</p>
+        {selectedVariant?.listPriceCents && (
           <p className="text-sm text-gray-500">
-            M.R.P.: <span className="line-through">{formatINR(defaultVariant.listPriceCents)}</span>
+            M.R.P.: <span className="line-through">{formatINR(selectedVariant.listPriceCents)}</span>
           </p>
         )}
-        {defaultVariant && defaultVariant.stock <= 5 && (
-          <p className="mt-1 text-sm font-semibold text-[#b12704]">Only {defaultVariant.stock} left in stock</p>
+        {selectedVariant && selectedVariant.stock <= 5 && (
+          <p className="mt-1 text-sm font-semibold text-[#b12704]">Only {selectedVariant.stock} left in stock</p>
         )}
         <p className="mt-2 text-sm text-gray-700">Colour / size options</p>
         <div className="mt-2 flex flex-wrap gap-2">
           {product.variants.map((v) => (
-            <span key={v.id} className="rounded border px-2 py-1 text-xs">
+            <Link
+              key={v.id}
+              href={`/product/${product.slug}?v=${v.id}`}
+              className={`rounded border px-2 py-1 text-xs ${v.id === selectedVariant?.id ? "border-[#c7511f] bg-orange-50" : ""}`}
+            >
               {v.optionLabel}
-            </span>
+            </Link>
           ))}
         </div>
         <p className="mt-4 text-sm">
           <span className="font-semibold text-[#007185]">FREE delivery</span> to Hyderabad 500081
         </p>
         <form action="/api/cart" method="post" className="mt-4 space-y-2">
-          <input type="hidden" name="variantId" value={defaultVariant?.id ?? ""} />
+          <input type="hidden" name="variantId" value={selectedVariant?.id ?? ""} />
           <button
             type="submit"
             className="w-full rounded-full bg-[#ffd814] py-2 text-sm font-medium hover:bg-[#f7ca00]"
           >
             Add to Cart
           </button>
+        </form>
+        <form action="/api/cart" method="post" className="mt-2">
+          <input type="hidden" name="action" value="add" />
+          <input type="hidden" name="variantId" value={selectedVariant?.id ?? ""} />
+          <input type="hidden" name="redirect" value="checkout" />
           <button
-            type="button"
+            type="submit"
             className="w-full rounded-full bg-[#ffa41c] py-2 text-sm font-medium hover:bg-[#fa8900]"
           >
             Buy Now
           </button>
         </form>
-        <p className="mt-2 text-center text-xs text-gray-600">Add to Wish List (Phase 3)</p>
+        <form action="/api/wishlist" method="post" className="mt-2">
+          <input type="hidden" name="action" value="add" />
+          <input type="hidden" name="variantId" value={selectedVariant?.id ?? ""} />
+          <input type="hidden" name="redirect" value={`/product/${product.slug}`} />
+          <button type="submit" className="w-full text-center text-xs text-[#007185] underline">
+            Add to Wish List
+          </button>
+        </form>
       </aside>
 
       {related.length > 0 && (

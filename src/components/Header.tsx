@@ -31,7 +31,7 @@ export function Header({ cartCount = 0, userName }: HeaderProps) {
           </button>
         </form>
         <nav className="ml-auto flex items-center gap-4 text-sm">
-          <Link href="/account" className="hover:underline">
+          <Link href={userName ? "/account" : "/login"} className="hover:underline">
             <div className="text-xs text-gray-400">Hello, {userName ?? "sign in"}</div>
             <div className="font-semibold">Account & Lists</div>
           </Link>
@@ -49,6 +49,7 @@ export function Header({ cartCount = 0, userName }: HeaderProps) {
         <div className="mx-auto flex max-w-7xl gap-4 overflow-x-auto whitespace-nowrap">
           <Link href="/category/shoes" className="hover:underline">Shoes</Link>
           <Link href="/category/deals" className="hover:underline">Today&apos;s Deals</Link>
+          <Link href="/wishlist" className="hover:underline">Lists</Link>
           <Link href="/category/fashion" className="hover:underline">Fashion</Link>
           <span className="text-[#febd69]">Great Indian Festival — shop early deals</span>
         </div>

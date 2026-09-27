@@ -20,20 +20,20 @@ Decisions for the 24h build. Revisit after Phase 1 recon; change rows if screens
 
 ## Build (must work in demo)
 
-- [x] Global layout: search, cart badge, account menu (cart count Phase 3)
+- [x] Global layout: search, cart badge, account menu
 - [x] Home, category, search results, PDP
-- [ ] Cart (qty, remove)
-- [ ] Auth: sign up, sign in, sign out
-- [ ] Address book
-- [ ] Checkout → order placed → confirmation
-- [ ] Orders list + order detail
-- [ ] Wishlist (add/remove/view)
+- [x] Cart (qty, remove)
+- [x] Auth: sign up, sign in, sign out
+- [x] Address book (view; add address Phase 4)
+- [x] Checkout → order placed → confirmation
+- [x] Orders list + order detail
+- [x] Wishlist (add/remove/view)
 - [ ] Responsive pass (mobile header + cart)
 
 ## Stub (visible, minimal logic)
 
 - [ ] Prime / fast shipping messaging
-- [ ] “Customers also viewed” on PDP
+- [x] “Customers also viewed” on PDP (same-category stub)
 - [ ] Payment methods page (UI; checkout uses one test method)
 - [ ] Tracking status (enum: Processing → Shipped → Delivered)
 

@@ -21,7 +21,15 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-**Demo user (after seed):** `demo@amazon-rebuild.test` / `demo1234` (auth UI Phase 3).
+**Demo user (after seed):** `demo@amazon-rebuild.test` / `demo1234`
+
+### Demo flow (Phase 3)
+
+1. Browse → add to cart (guest) or sign in first
+2. `/login` → demo credentials → cart merges
+3. `/checkout` → place order (optional: simulate payment failure)
+4. `/orders` → order detail with tracking stepper
+5. PDP → **Add to Wish List** → `/wishlist`
 
 ## Deploy (Vercel)
 
