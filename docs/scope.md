@@ -20,8 +20,8 @@ Decisions for the 24h build. Revisit after Phase 1 recon; change rows if screens
 
 ## Build (must work in demo)
 
-- [ ] Global layout: search, cart badge, account menu
-- [ ] Home, category, search results, PDP
+- [x] Global layout: search, cart badge, account menu (cart count Phase 3)
+- [x] Home, category, search results, PDP
 - [ ] Cart (qty, remove)
 - [ ] Auth: sign up, sign in, sign out
 - [ ] Address book
