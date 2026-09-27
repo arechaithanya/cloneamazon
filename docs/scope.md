@@ -48,8 +48,16 @@ Decisions for the 24h build. Revisit after Phase 1 recon; change rows if screens
 
 ## “Better than original” (pick 1–2)
 
-- [ ] Fewer checkout steps with clear progress
-- [ ] Strong empty/error states (cart, search, OOS)
+- [x] Fewer checkout steps with clear progress
+- [x] Strong empty/error states (cart, search, OOS) — include **payment failed** on order row (seen in recon)
 - [ ] Accessible focus order on search + cart
 
-_Note choices here after recon:_
+## Optional flows (from recon — see `flow-map.md`)
+
+| Flow | MVP decision |
+|------|----------------|
+| Buy Now | Include (light) — same checkout backend as cart |
+| Deals / festival | Include (simplified) — `is_deal` tag + banner |
+| Marketplace 3P | Cut |
+| Returns | Cut — static policy link |
+| Help | Stub FAQ only |
