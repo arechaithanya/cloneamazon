@@ -24,7 +24,7 @@ Decisions for the 24h build. Revisit after Phase 1 recon; change rows if screens
 - [x] Home, category, search results, PDP
 - [x] Cart (qty, remove)
 - [x] Auth: sign up, sign in, sign out
-- [x] Address book (view; add address Phase 4)
+- [x] Address book (add, edit, remove, default — Phase 4 Block A)
 - [x] Checkout → order placed → confirmation
 - [x] Orders list + order detail
 - [x] Wishlist (add/remove/view)

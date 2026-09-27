@@ -15,7 +15,7 @@ export async function placeOrder(userId: string, simulatePaymentFail = false) {
 
   const address = await prisma.address.findFirst({
     where: { userId },
-    orderBy: { isDefault: "desc" },
+    orderBy: [{ isDefault: "desc" }, { id: "asc" }],
   });
   if (!address) return { error: "Add a delivery address in Your Account." as const };
 

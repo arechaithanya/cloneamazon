@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCurrentUser } from "@/lib/auth";
+import { getDefaultAddress } from "@/lib/addresses";
 import { getCart } from "@/lib/cart-service";
 import { formatINR } from "@/lib/format";
 import { redirect } from "next/navigation";
@@ -17,7 +18,7 @@ export default async function CheckoutPage({ searchParams }: Props) {
   if (lines.length === 0) redirect("/cart");
 
   const { error } = await searchParams;
-  const address = user.addresses[0];
+  const address = await getDefaultAddress(user.id);
   const subtotal = lines.reduce((s, l) => s + l.variant.priceCents * l.quantity, 0);
 
   return (
