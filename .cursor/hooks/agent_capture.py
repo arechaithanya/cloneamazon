@@ -112,6 +112,16 @@ def ensure_session(state: dict, conversation_id: str, model: str) -> dict:
     return sessions[conversation_id]
 
 
+def log_body_after_frontmatter(content: str) -> str:
+    """Keep only LOG_ENTRY blocks when refreshing YAML frontmatter."""
+    if content.startswith("---"):
+        end = content.find("\n---\n", 4)
+        if end != -1:
+            content = content[end + 5 :]
+    marker = content.find("[LOG_ENTRY")
+    return content[marker:] if marker != -1 else ""
+
+
 def update_frontmatter(path: Path, session: dict, conversation_id: str, model: str, total: int, last_time: str) -> None:
     started_date = session.get("first_prompt_time", utc_now())[:10]
     meta = {
@@ -128,14 +138,11 @@ def update_frontmatter(path: Path, session: dict, conversation_id: str, model: s
     }
     full = ROOT / session["log_path"]
     content = full.read_text(encoding="utf-8")
-    if content.startswith("---"):
-        end = content.find("\n---\n", 4)
-        if end != -1:
-            rest = content[end + 5 :]
-            write_header(full, meta)
-            with full.open("a", encoding="utf-8") as f:
-                f.write(rest)
-            return
+    rest = log_body_after_frontmatter(content)
+    write_header(full, meta)
+    if rest:
+        with full.open("a", encoding="utf-8") as f:
+            f.write(rest)
 
 
 def main() -> None:
