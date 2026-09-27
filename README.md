@@ -18,7 +18,7 @@ Sign in at [cloneamazon-bay.vercel.app/login](https://cloneamazon-bay.vercel.app
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -84,7 +84,7 @@ Sign in at [cloneamazon-bay.vercel.app/login](https://cloneamazon-bay.vercel.app
   - Customers who also bought (6 kids' fashion items)
   - Your browsing history
 
-### 📱 Category Pages
+### Category Pages
 | Page | Products |
 |------|---------|
 | **Mobiles** `/mobiles` | 16 Apple iPhones + Nokia 110 4G |
