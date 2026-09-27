@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Link from "next/link";
 import { CartCountBadge } from "./CartCountBadge";
+import { AccountBadge } from "./AccountBadge";
 import { assetsImg } from "../Data/data";
 import SearchBar from "./SearchBar";
 const Header = () => {
@@ -43,10 +44,7 @@ const Header = () => {
             <ArrowDropDownIcon />
           </div>
 
-          <Link href="/login" className="text-[12px] p-2 h-12 border border-transparent hover:border-white">
-            <span>Hello, <span>Sign in</span></span>
-            <p className="font-semibold capitalize">Account & List</p>
-          </Link>
+          <AccountBadge />
           <Link href="/orders" className="text-[12px] p-2 h-12 border border-transparent hover:border-white">
             <span>Returns</span>
             <p className="font-semibold capitalize">& Orders</p>
