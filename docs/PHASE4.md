@@ -14,9 +14,10 @@
 
 ## Block C — UX polish
 
+- Visual reference: [`design/AMZSS1-SCREEN-MAP.md`](./design/AMZSS1-SCREEN-MAP.md) (screens 16–35 for home, PDP, cart, auth)
 - Mobile header / cart responsive pass
 - Empty states, footer (returns policy link)
-- Prime / delivery copy stubs
+- Prime / delivery copy stubs (screens 10–11)
 
 ## Block D — Demo hardening
 
