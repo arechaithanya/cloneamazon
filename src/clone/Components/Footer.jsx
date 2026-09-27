@@ -62,7 +62,7 @@ const Footer = () => {
         </div>
         <div className="max-w-[1000px] mx-auto flex justify-center items-center flex-wrap pb-8 pt-5 gap-2 text-[14px] text-[#cacacb]">
           <p>
-            © Copyright {currentYear} by Debabrata Das | All rights reserved
+            © Copyright {currentYear} Amazon Clone by Chaithanya Reddy
           </p>
         </div>
       </div>
