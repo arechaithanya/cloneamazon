@@ -48,7 +48,7 @@ State file (exchange counters): `.agent-logs/.capture-state.json`
 timestamp: 2026-09-27T10:36:10.694Z
 model: composer-2.5
 
-CAPTURE TEST — 8x assignment, ramakrishna
+CAPTURE TEST — 8x assignment, chaithanya
 
 
 [LOG_ENTRY type=RESPONSE num=4 session=095b1923]
@@ -63,7 +63,7 @@ Look for:
 
     [LOG_ENTRY type=PROMPT num=4 session=095b1923]
     ...
-    CAPTURE TEST — 8x assignment, ramakrishna
+    CAPTURE TEST — 8x assignment, chaithanya
 
 When this reply finishes, refresh that file — you should see **`[LOG_ENTRY type=RESPONSE num=4 ...]`** right below it. That pair is **Canary 1** for `CAPTURE-TEST.md`.
 
@@ -72,7 +72,7 @@ When this reply finishes, refresh that file — you should see **`[LOG_ENTRY typ
 **Next (Step 4, part 2)**
 
 1. Open a **new** Agent chat (same `amazon` folder) — **+** / New Chat in the Agent panel.
-2. Send exactly: `CAPTURE TEST — second session, ramakrishna`
+2. Send exactly: `CAPTURE TEST — second session, chaithanya`
 3. Confirm a **second** `.md` file appears in `.agent-logs/` (new UUID in the filename).
 4. Reply **“canaries done”** and I can paste both blocks into `CAPTURE-TEST.md` and commit for you.
 ```
@@ -84,7 +84,7 @@ When this reply finishes, refresh that file — you should see **`[LOG_ENTRY typ
 timestamp: 2026-09-27T10:37:19.445Z
 model: composer-2.5
 
-CAPTURE TEST — second session, ramakrishna
+CAPTURE TEST — second session, chaithanya
 
 
 [LOG_ENTRY type=RESPONSE num=1 session=bc12c6b5]
@@ -102,7 +102,7 @@ Hooks should already have logged your prompt in a **separate** session file from
 | **A** (8x assignment) | `095b1923…` | `2026-09-27_10-29-55_095b1923-78c0-4ac5-9ffb-7add35b76a38.md` — PROMPT/RESPONSE at **num=4** |
 | **B** (second session) | `bc12c6b5…` | `2026-09-27_10-37-19_bc12c6b5-2c42-44f0-9643-488fd176900c.md` |
 
-After this reply is written, refresh the **bc12c6b5** file. You should see **`[LOG_ENTRY type=RESPONSE num=1 session=bc12c6b5]`** under the PROMPT with `CAPTURE TEST — second session, ramakrishna`. That confirms two distinct `.md` logs (two session IDs in the filenames).
+After this reply is written, refresh the **bc12c6b5** file. You should see **`[LOG_ENTRY type=RESPONSE num=1 session=bc12c6b5]`** under the PROMPT with `CAPTURE TEST — second session, chaithanya`. That confirms two distinct `.md` logs (two session IDs in the filenames).
 
 **Step 4 checklist**
 
@@ -119,7 +119,7 @@ Reply **“canaries done”** if you want those blocks pasted into `CAPTURE-TEST
 From repo root, piping sample hook JSON verifies the writer without Cursor:
 
 ```bash
-echo '{"hook_event_name":"beforeSubmitPrompt","conversation_id":"00000000-0000-4000-8000-000000000001","model":"composer","prompt":"CAPTURE TEST — 8x assignment, ramakrishna"}' | .cursor/hooks/agent-capture.sh
+echo '{"hook_event_name":"beforeSubmitPrompt","conversation_id":"00000000-0000-4000-8000-000000000001","model":"composer","prompt":"CAPTURE TEST — 8x assignment, chaithanya"}' | .cursor/hooks/agent-capture.sh
 echo '{"hook_event_name":"afterAgentResponse","conversation_id":"00000000-0000-4000-8000-000000000001","model":"composer","text":"Self-test response."}' | .cursor/hooks/agent-capture.sh
 ```
 
