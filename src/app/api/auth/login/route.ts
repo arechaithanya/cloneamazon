@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  return Response.redirect(new URL("/login", request.url));
+  return NextResponse.redirect(new URL("/login", request.url), 303);
 }
 
 export async function POST(request: Request) {
@@ -16,17 +16,23 @@ export async function POST(request: Request) {
   const next = String(form.get("next") ?? "/");
 
   const result = await loginUser(email, password);
-  const redirectUrl = new URL(result.error ? `/login?error=1&next=${encodeURIComponent(next)}` : next, request.url);
-  const response = NextResponse.redirect(redirectUrl);
 
-  if (result.error) return response;
+  if (result.error) {
+    return NextResponse.redirect(
+      new URL(`/login?error=1&next=${encodeURIComponent(next)}`, request.url),
+      303
+    );
+  }
 
   const jar = await cookies();
   const guestSession = jar.get(GUEST_CART_COOKIE)?.value;
   if (guestSession) {
     await mergeGuestCartIntoUser(result.user.id, guestSession);
-    response.cookies.delete(GUEST_CART_COOKIE);
   }
+
+  const response = NextResponse.redirect(new URL(next, request.url), 303);
+
+  if (guestSession) response.cookies.delete(GUEST_CART_COOKIE);
 
   response.cookies.set(AUTH_COOKIE, createAuthToken(result.user.id), {
     httpOnly: true,

@@ -4,7 +4,7 @@ import { createAuthToken } from "@/lib/session";
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  return Response.redirect(new URL("/register", request.url));
+  return NextResponse.redirect(new URL("/register", request.url), 303);
 }
 
 export async function POST(request: Request) {
@@ -15,10 +15,10 @@ export async function POST(request: Request) {
 
   const result = await registerUser(email, password, name);
   if (result.error) {
-    return NextResponse.redirect(new URL("/register?error=exists", request.url));
+    return NextResponse.redirect(new URL("/register?error=exists", request.url), 303);
   }
 
-  const response = NextResponse.redirect(new URL("/", request.url));
+  const response = NextResponse.redirect(new URL("/", request.url), 303);
   response.cookies.set(AUTH_COOKIE, createAuthToken(result.user.id), {
     httpOnly: true,
     path: "/",

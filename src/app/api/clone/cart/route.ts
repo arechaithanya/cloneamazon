@@ -11,12 +11,12 @@ export async function POST(request: Request) {
   const redirectTo = String(form.get("redirect") ?? "/CartPage");
 
   if (!cloneId) {
-    return NextResponse.redirect(new URL("/CartPage", request.url));
+    return NextResponse.redirect(new URL("/CartPage", request.url), 303);
   }
 
   const variantId = await ensureVariantForCloneId(String(cloneId));
   const userId = await getAuthenticatedUserId();
-  const response = NextResponse.redirect(new URL(redirectTo, request.url));
+  const response = NextResponse.redirect(new URL(redirectTo, request.url), 303);
 
   let cartId: string;
   if (userId) {

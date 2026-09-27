@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
   const userId = await getAuthenticatedUserId();
   let cartId: string | undefined;
-  const response = NextResponse.redirect(new URL(redirectTo, request.url));
+  const response = NextResponse.redirect(new URL(redirectTo, request.url), 303);
 
   if (userId) {
     let cart = await prisma.cart.findUnique({ where: { userId } });
@@ -42,7 +42,7 @@ export async function POST(request: Request) {
         : redirectTo.startsWith("/")
           ? `${redirectTo}${redirectTo.includes("?") ? "&" : "?"}added=1`
           : "/CartPage?added=1";
-    return NextResponse.redirect(new URL(dest, request.url));
+    return NextResponse.redirect(new URL(dest, request.url), 303);
   }
 
   if (action === "update" && lineId) {
@@ -50,13 +50,13 @@ export async function POST(request: Request) {
       where: { id: lineId, cartId },
       data: { quantity },
     });
-    return NextResponse.redirect(new URL("/CartPage", request.url));
+    return NextResponse.redirect(new URL("/CartPage", request.url), 303);
   }
 
   if (action === "remove" && lineId) {
     await prisma.cartLine.deleteMany({ where: { id: lineId, cartId } });
-    return NextResponse.redirect(new URL("/CartPage", request.url));
+    return NextResponse.redirect(new URL("/CartPage", request.url), 303);
   }
 
-  return NextResponse.redirect(new URL("/CartPage", request.url));
+  return NextResponse.redirect(new URL("/CartPage", request.url), 303);
 }
