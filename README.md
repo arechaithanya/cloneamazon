@@ -1,4 +1,4 @@
-# 🛒 Amazon Clone — 8x Assignment
+# 🛒 Amazon Clone
 
 A full-stack Amazon.in-style e-commerce clone built in under 24 hours. Live, deployed, and fully functional.
 
@@ -7,7 +7,7 @@ A full-stack Amazon.in-style e-commerce clone built in under 24 hours. Live, dep
 
 ---
 
-## 🔑 Demo Credentials
+## Demo Credentials
 
 | Field | Value |
 |-------|-------|
@@ -33,7 +33,7 @@ Sign in at [cloneamazon-bay.vercel.app/login](https://cloneamazon-bay.vercel.app
 
 ---
 
-## 🏗 Architecture
+## Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -70,9 +70,9 @@ Sign in at [cloneamazon-bay.vercel.app/login](https://cloneamazon-bay.vercel.app
 
 ---
 
-## ✨ Features
+## Features
 
-### 🏠 Homepage
+### Homepage
 - Amazon-style header with logo, delivery address, search, account, cart
 - **Live search autocomplete** — results appear as you type (200ms debounce), keyboard navigable
 - Hero banner carousel (react-slick)
@@ -93,7 +93,7 @@ Sign in at [cloneamazon-bay.vercel.app/login](https://cloneamazon-bay.vercel.app
 | **Fashion** `/fashion` | 7 Women's Kurtas/Dresses + 6 Kids' Jackets |
 | **Computers** `/computers` | 9 Laptops (Dell, Apple, Lenovo, ASUS, HP, MSI, Razer) |
 
-### 🛍 Product Detail Page (PDP)
+### Product Detail Page (PDP)
 - Product image with thumbnail switcher and colour variants
 - Price, EMI info, delivery details
 - **About this item** — rendered as bullet points
@@ -103,21 +103,21 @@ Sign in at [cloneamazon-bay.vercel.app/login](https://cloneamazon-bay.vercel.app
 - Buy Now button → checkout
 - Add to Wish List link
 
-### 🛒 Cart
+### Cart
 - Guest cart (cookie) — persists without login
 - **Guest cart merges** into user account on login
 - Quantity update and item removal
 - Order subtotal calculation
 - Proceed to Checkout
 
-### 🔐 Auth
+### Auth
 - Register new account (name, email, password)
 - Login with email + password
 - **Account dropdown** on hover — shows user name, links to Account/Orders/Wishlist, Sign Out
 - Session stored as HMAC-signed HTTP-only secure cookie
 - Protected routes redirect to login with `?next=` parameter
 
-### 💳 Checkout & Orders
+### Checkout & Orders
 - Requires login (guest redirected with return URL)
 - Delivery address from account
 - Simulated payment (no real card needed)
@@ -125,21 +125,21 @@ Sign in at [cloneamazon-bay.vercel.app/login](https://cloneamazon-bay.vercel.app
 - Full order history at `/orders`
 - Individual order detail with tracking steps
 
-### 🌟 Prime Video Page
+### Prime Video Page
 - Standalone page at `/prime-video` with its own header/footer
 - "Welcome to Prime Video" hero section
 - Movie rentals section
 - Prime Video Channels grid (12 channels)
 - Sign in / Join Prime CTAs
 
-### 👤 Account
+### Account
 - Address book (add, edit, delete, set default)
 - Order history
 - Wishlist
 
 ---
 
-## 🗂 Project Structure
+## Project Structure
 
 ```
 src/
@@ -177,7 +177,7 @@ CAPTURE-TEST.md             # Agent capture verification
 
 ---
 
-## 🚀 Local Development
+## Local Development
 
 ```bash
 git clone https://github.com/arechaithanya/cloneamazon.git
@@ -198,29 +198,5 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000)
 
----
-
-## 🤖 Agent Capture
-
-Every AI prompt and response was automatically captured using **Cursor project hooks** (`.cursor/hooks.json`). Logs are in `.agent-logs/` and committed to this repo — no manual logging.
-
-- Tool: **Cursor** (Agent / Composer)
-- Model: **claude-sonnet-4-6**
-- Capture: `beforeSubmitPrompt` + `afterAgentResponse` hooks
-- Format: One `.md` file per session, `[LOG_ENTRY type=PROMPT]` / `[LOG_ENTRY type=RESPONSE]`
-
-See [`CAPTURE-TEST.md`](./CAPTURE-TEST.md) for verification details.
-
----
-
-## 📋 Assignment Checklist
-
-- [x] Live URL — [cloneamazon-bay.vercel.app](https://cloneamazon-bay.vercel.app)
-- [x] Public repository with `.agent-logs/` committed
-- [x] All core flows working (browse → PDP → cart → auth → checkout → orders)
-- [x] Walkthrough video recorded
-- [x] Agent capture verified across multiple sessions
-
----
 
 *Built by [Chaithanya Reddy](https://github.com/arechaithanya) for the 8x assignment.*
