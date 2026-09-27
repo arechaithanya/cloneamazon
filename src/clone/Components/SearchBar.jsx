@@ -78,7 +78,7 @@ export default function SearchBar() {
 
   return (
     <div ref={wrapperRef} className="relative order-3 w-full flex-1 basis-full px-2 lg:order-none lg:basis-auto lg:px-0">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} action="/search" method="get">
         <div className="bg-white rounded-[6px] m-1 flex items-center h-10 border border-transparent focus-within:ring-3 focus-within:ring-[#f08804]">
           <select
             name="category"
