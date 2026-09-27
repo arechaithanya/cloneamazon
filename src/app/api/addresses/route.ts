@@ -1,4 +1,4 @@
-import { getAuthUserId } from "@/lib/session";
+import { getAuthenticatedUserId } from "@/lib/auth";
 import {
   parseAddressForm,
   setDefaultAddress,
@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const userId = await getAuthUserId();
+  const userId = await getAuthenticatedUserId();
   if (!userId) {
     return NextResponse.redirect(new URL("/login?next=/account/addresses", request.url));
   }

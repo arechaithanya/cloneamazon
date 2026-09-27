@@ -2,8 +2,16 @@ import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
 import { getAuthUserId } from "@/lib/session";
 
-export async function getCurrentUser() {
+/** Ignore session cookies that point at users removed by db reseed. */
+export async function getAuthenticatedUserId(): Promise<string | null> {
   const userId = await getAuthUserId();
+  if (!userId) return null;
+  const user = await prisma.user.findUnique({ where: { id: userId }, select: { id: true } });
+  return user?.id ?? null;
+}
+
+export async function getCurrentUser() {
+  const userId = await getAuthenticatedUserId();
   if (!userId) return null;
   return prisma.user.findUnique({
     where: { id: userId },

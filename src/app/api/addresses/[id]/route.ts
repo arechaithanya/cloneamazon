@@ -1,4 +1,4 @@
-import { getAuthUserId } from "@/lib/session";
+import { getAuthenticatedUserId } from "@/lib/auth";
 import { parseAddressForm, validateAddress } from "@/lib/addresses";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
@@ -6,7 +6,7 @@ import { NextResponse } from "next/server";
 type Ctx = { params: Promise<{ id: string }> };
 
 export async function POST(request: Request, { params }: Ctx) {
-  const userId = await getAuthUserId();
+  const userId = await getAuthenticatedUserId();
   if (!userId) {
     return NextResponse.redirect(new URL("/login?next=/account/addresses", request.url));
   }

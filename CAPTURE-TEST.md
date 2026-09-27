@@ -61,11 +61,9 @@ model: composer-2.5
 
 Look for:
 
-```text
-[LOG_ENTRY type=PROMPT num=4 session=095b1923]
-...
-CAPTURE TEST — 8x assignment, ramakrishna
-```
+    [LOG_ENTRY type=PROMPT num=4 session=095b1923]
+    ...
+    CAPTURE TEST — 8x assignment, ramakrishna
 
 When this reply finishes, refresh that file — you should see **`[LOG_ENTRY type=RESPONSE num=4 ...]`** right below it. That pair is **Canary 1** for `CAPTURE-TEST.md`.
 

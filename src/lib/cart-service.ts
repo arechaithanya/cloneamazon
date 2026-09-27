@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { GUEST_CART_COOKIE } from "@/lib/constants";
-import { getAuthUserId } from "@/lib/session";
+import { getAuthenticatedUserId } from "@/lib/auth";
 
 const cartInclude = {
   lines: {
@@ -24,7 +24,7 @@ const cartInclude = {
 export type CartWithLines = Prisma.CartGetPayload<{ include: typeof cartInclude }>;
 
 export async function getCart(): Promise<CartWithLines | null> {
-  const userId = await getAuthUserId();
+  const userId = await getAuthenticatedUserId();
   const jar = await cookies();
 
   if (userId) {

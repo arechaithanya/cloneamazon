@@ -1,5 +1,5 @@
 import { addToCart, getOrCreateGuestCartId } from "@/lib/cart-service";
-import { getAuthUserId } from "@/lib/session";
+import { getAuthenticatedUserId } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { GUEST_CART_COOKIE } from "@/lib/constants";
 import { cookies } from "next/headers";
@@ -11,9 +11,9 @@ export async function POST(request: Request) {
   const variantId = String(form.get("variantId") ?? "");
   const lineId = String(form.get("lineId") ?? "");
   const quantity = Math.max(1, parseInt(String(form.get("quantity") ?? "1"), 10) || 1);
-  const redirectTo = String(form.get("redirect") ?? "/cart");
+  const redirectTo = String(form.get("redirect") ?? "/CartPage");
 
-  const userId = await getAuthUserId();
+  const userId = await getAuthenticatedUserId();
   let cartId: string | undefined;
   const response = NextResponse.redirect(new URL(redirectTo, request.url));
 
@@ -36,7 +36,12 @@ export async function POST(request: Request) {
 
   if (action === "add" && variantId) {
     await addToCart(cartId, variantId, quantity);
-    const dest = redirectTo === "checkout" ? "/checkout" : "/cart?added=1";
+    const dest =
+      redirectTo === "checkout"
+        ? "/checkout"
+        : redirectTo.startsWith("/")
+          ? `${redirectTo}${redirectTo.includes("?") ? "&" : "?"}added=1`
+          : "/CartPage?added=1";
     return NextResponse.redirect(new URL(dest, request.url));
   }
 
@@ -45,13 +50,13 @@ export async function POST(request: Request) {
       where: { id: lineId, cartId },
       data: { quantity },
     });
-    return NextResponse.redirect(new URL("/cart", request.url));
+    return NextResponse.redirect(new URL("/CartPage", request.url));
   }
 
   if (action === "remove" && lineId) {
     await prisma.cartLine.deleteMany({ where: { id: lineId, cartId } });
-    return NextResponse.redirect(new URL("/cart", request.url));
+    return NextResponse.redirect(new URL("/CartPage", request.url));
   }
 
-  return NextResponse.redirect(new URL("/cart", request.url));
+  return NextResponse.redirect(new URL("/CartPage", request.url));
 }
