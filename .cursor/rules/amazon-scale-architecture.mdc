@@ -1,0 +1,24 @@
+---
+description: North-star Amazon-scale e-commerce architecture (microservices, events, data stores)
+alwaysApply: true
+---
+
+# Amazon-scale architecture (target)
+
+When designing or extending this project, align with the documented north-star in `docs/ARCHITECTURE.md`.
+
+**Principles to follow**
+
+- Edge: CDN for static/media; API Gateway for auth, rate limits, routing.
+- Sync path: Auth, Catalog, Cart (Redis), Checkout orchestrator, Order/Payment (Postgres ACID).
+- Async path: Kafka (or equivalent) for inventory updates, notifications, search indexing, analytics.
+- Checkout: Saga with compensating transactions (release inventory hold on payment failure).
+- Search: Elasticsearch/OpenSearch indexed asynchronously from catalog—not primary DB for search at scale.
+
+**24h / MVP exception**
+
+Judges reward shipped UX and core flows. An MVP may be Next.js + Postgres (+ Redis cart, optional Stripe test) with **logical** service boundaries in code, not 10 deployed microservices. Evolve toward `docs/ARCHITECTURE.md` when scaling.
+
+**Avoid premature complexity**
+
+Polyglot microservices, Cassandra, Neo4j/Pinecone, and dual catalog DBs are valid at hyperscale—not required for first production slice.
